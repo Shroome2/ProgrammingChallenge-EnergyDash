@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeedPostCalc;
     [SerializeField] private float Energy = 100f;
     [SerializeField] public float moveSpeed = 20f;
+    [SerializeField] private bool canDash;
 
 
     void Update()
@@ -19,8 +20,12 @@ public class PlayerMovement : MonoBehaviour
             moveSpeedPostCalc = moveSpeed;
         }
 
-        
-        Vector3 direction = Vector3.zero;
+        while (Energy > 0 && Input.GetKey(KeyCode.LeftShift))
+        {
+
+        }
+        {
+            Vector3 direction = Vector3.zero;
 
             if (Input.GetKey(KeyCode.W)) direction.z += 1f;
             if (Input.GetKey(KeyCode.S)) direction.z -= 1f;
@@ -31,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
                 direction.normalized * moveSpeedPostCalc * Time.deltaTime,
                 Space.World
             );
-        
+        }
 
        
     }
