@@ -5,25 +5,36 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeedPostCalc;
     [SerializeField] private float Energy = 100f;
     [SerializeField] public float moveSpeed = 20f;
-    [SerializeField] private bool canDash;
-
+    [SerializeField] private bool Regenerating;
 
     void Update()
     {
 
-        if (Energy > 0 && Input.GetKey(KeyCode.LeftShift))
+        if (Energy > 0 && Input.GetKey(KeyCode.LeftShift) &&! Regenerating)
         {
-            moveSpeedPostCalc = moveSpeed * 2;
+            moveSpeedPostCalc = moveSpeed * 2; 
+            Energy -= 0.1f;
+            Energy = Mathf.Clamp(Energy, 0, 100);
         }
         else
         {
             moveSpeedPostCalc = moveSpeed;
         }
 
-        while (Energy > 0 && Input.GetKey(KeyCode.LeftShift))
+        if (Energy == 0)
         {
-
+            Regenerating = true;
         }
+        if (Energy == 100)
+        {
+            Regenerating= false;
+        }
+         if (Regenerating == true)
+        {
+            Energy += 0.1f;
+            Energy = Mathf.Clamp(Energy, 0, 100);
+        }
+
         {
             Vector3 direction = Vector3.zero;
 
